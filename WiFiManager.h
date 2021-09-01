@@ -43,6 +43,13 @@
 #define WM_NOTEMP
 #endif
 
+#ifndef HTTPD_USER_DEFAULT
+#define HTTPD_USER_DEFAULT "admin"
+#endif
+#ifndef HTTPD_PASSWD_DEFAULT
+#define HTTPD_PASSWD_DEFAULT "1234"
+#endif
+
 // #include "soc/efuse_reg.h" // include to add efuse chip rev to info, getChipRevision() is almost always the same though, so not sure why it matters.
 
 // #define esp32autoreconnect    // implement esp32 autoreconnect event listener kludge, @DEPRECATED
@@ -330,6 +337,9 @@ class WiFiManager
 	// Usefull when used with e.g. startWebPortal()
 	void          setHttpdAuthEnable(boolean enabled);
 
+    // set httpd authentication username / password
+    void          setHttpdAuthCredentials(String username, String password);
+
     //if false, disable captive portal redirection
     void          setCaptivePortalEnable(boolean enabled);
     
@@ -539,6 +549,8 @@ class WiFiManager
     const char*   _customMenuHTML         = ""; // store custom head element html from user inside <>
     String        _bodyClass              = ""; // class to add to body
     String        _title                  = FPSTR(S_brand); // app title -  default WiFiManager
+    String        _httpdAuthUsername      = HTTPD_USER_DEFAULT;
+    String        _httpdAuthPassword      = HTTPD_PASSWD_DEFAULT;
 
     // internal options
     
